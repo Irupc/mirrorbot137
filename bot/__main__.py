@@ -84,15 +84,14 @@ def log(update, context):
 @run_async
 def bot_help(update, context):
     help_string = f'''
-/{BotCommands.publicMirrorCommand}: To get This Msg
-**/{BotCommands.publicMirrorCommand}** 👇🏾 
-Reply to Telegram File to Uplaod it to Google Drive and get Speed Download Links ❗️
-[😇](https://telegra.ph/file/7550ef54befe95d851706.png) Custom File name Supported Send file name as below...
-```/{BotCommands.publicMirrorCommand} | Custom File Name.extenction```
+/help : To get This Msg
+/{BotCommands.publicMirrorCommand} 👇🏾 
+Reply to Telegram File to Uplaod it to Google Drive and get Ultra Speed Download Link ❗️
+
+😇 Custom File name Supported Send file name as below...
+/{BotCommands.publicMirrorCommand} | Custom File Name.extenction
 
 ❌Don't Forget to send File Extenction if you set Custom File Name❌
-
-[👮‍♂️ Click HERE to get More Infomations](https://telegra.ph/File-To-Link-Bot-Help-08-14) 
 '''
     sendMessage(help_string, context.bot, update)
 
