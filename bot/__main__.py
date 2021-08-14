@@ -83,7 +83,7 @@ def log(update, context):
 
 @run_async
 def bot_help(update, context):
-    if HELP_TEXT_BOOL == ture:
+    if HELP_TEXT_BOOL == "true":
         sendMessage(HELP_TEXT, context.bot, update)
     else:
         return
