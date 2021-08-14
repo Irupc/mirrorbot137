@@ -68,8 +68,7 @@ def cancel_all(update, context):
     sendMessage(f'Cancelled {count} downloads!', context.bot, update)
 
 
-cancel_mirror_handler = CommandHandler(BotCommands.CancelMirror, cancel_mirror,
-                                       filters=(CustomFilters.authorized_chat | CustomFilters.authorized_user) & CustomFilters.mirror_owner_filter)
+cancel_mirror_handler = CommandHandler(BotCommands.CancelMirror, cancel_mirror)
 cancel_all_handler = CommandHandler(BotCommands.CancelAllCommand, cancel_all,
                                     filters=CustomFilters.owner_filter)
 dispatcher.add_handler(cancel_all_handler)
