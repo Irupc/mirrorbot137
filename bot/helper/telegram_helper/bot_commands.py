@@ -22,5 +22,6 @@ class _BotCommands:
         self.TarWatchCommand = 'tarwatch'
         self.DeleteCommand = 'del'
         self.UsageCommand = 'usage'
+        self.publicMirrorCommand = 'speedlink'
 
 BotCommands = _BotCommands()
