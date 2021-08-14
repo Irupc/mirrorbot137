@@ -297,12 +297,20 @@ def unzip_mirror(update, context):
     _mirror(context.bot, update, extract=True)
 
 
+@run_async
+def public_mirror(update, context):
+    _mirror(context.bot, update)
+
+
 mirror_handler = CommandHandler(BotCommands.MirrorCommand, mirror,
                                 filters=CustomFilters.authorized_chat | CustomFilters.authorized_user)
 tar_mirror_handler = CommandHandler(BotCommands.TarMirrorCommand, tar_mirror,
                                     filters=CustomFilters.authorized_chat | CustomFilters.authorized_user)
 unzip_mirror_handler = CommandHandler(BotCommands.UnzipMirrorCommand, unzip_mirror,
                                       filters=CustomFilters.authorized_chat | CustomFilters.authorized_user)
+public_mirror_handler = CommandHandler(BotCommands.publicMirrorCommand, mirror)
+
 dispatcher.add_handler(mirror_handler)
 dispatcher.add_handler(tar_mirror_handler)
 dispatcher.add_handler(unzip_mirror_handler)
+dispatcher.add_handler(public_mirror_handler)
