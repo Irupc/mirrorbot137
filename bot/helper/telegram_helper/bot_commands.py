@@ -22,6 +22,6 @@ class _BotCommands:
         self.TarWatchCommand = 'tarwatch'
         self.DeleteCommand = 'del'
         self.UsageCommand = 'usage'
-        self.publicMirrorCommand = 'speedlink'
+        self.publicMirrorCommand = 'gdriveupload'
 
 BotCommands = _BotCommands()
