@@ -10,7 +10,7 @@ import pytz
 import time
 from telegram import ParseMode
 from telegram.ext import CommandHandler, run_async
-from bot import dispatcher, updater, botStartTime, AUTHORIZED_CHATS, IMAGE_URL
+from bot import dispatcher, updater, botStartTime, AUTHORIZED_CHATS, IMAGE_URL, HELP_TEXT, HELP_TEXT_BOOL
 from bot.helper.ext_utils import fs_utils
 from bot.helper.telegram_helper.bot_commands import BotCommands
 from bot.helper.telegram_helper.message_utils import *
@@ -83,17 +83,10 @@ def log(update, context):
 
 @run_async
 def bot_help(update, context):
-    help_string = f'''
-/help : To get This Msg
-/{BotCommands.publicMirrorCommand} 👇🏾 
-Reply to Telegram File to Uplaod it to Google Drive and get Ultra Speed Download Link ❗️
-
-😇 Custom File name Supported Send file name as below...
-/{BotCommands.publicMirrorCommand} | Custom File Name.extenction
-
-❌Don't Forget to send File Extenction if you set Custom File Name❌
-'''
-    sendMessage(help_string, context.bot, update)
+    if HELP_TEXT_BOOL == ture:
+        sendMessage(HELP_TEXT, context.bot, update)
+    else:
+        return
 
 
 def main():
