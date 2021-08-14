@@ -51,15 +51,6 @@ def stats(update, context):
     
 
 @run_async
-def start(update, context):
-    start_string = f'''
-This bot is built by @rahulkhatri137 to mirror your links to Google Drive!
-Type /{BotCommands.HelpCommand} to get a list of available commands
-'''
-    sendMessage(start_string, context.bot, update)
-
-
-@run_async
 def chat_list(update, context):
     chatlist =''
     chatlist += '\n'.join(str(id) for id in AUTHORIZED_CHATS)
@@ -93,35 +84,15 @@ def log(update, context):
 @run_async
 def bot_help(update, context):
     help_string = f'''
-/{BotCommands.HelpCommand}: To get this message
+/{BotCommands.publicMirrorCommand}: To get This Msg
+**/{BotCommands.publicMirrorCommand}** 👇🏾 
+Reply to Telegram File to Uplaod it to Google Drive and get Speed Download Links ❗️
+[😇](https://telegra.ph/file/7550ef54befe95d851706.png) Custom File name Supported Send file name as below...
+```/{BotCommands.publicMirrorCommand} | Custom File Name.extenction```
 
-/{BotCommands.MirrorCommand} [download_url][magnet_link]: Start mirroring the link to google drive
+❌Don't Forget to send File Extenction if you set Custom File Name❌
 
-/{BotCommands.UnzipMirrorCommand} [download_url][magnet_link]: Starts mirroring and if downloaded file is any archive, extracts it to Google Drive
-
-/{BotCommands.TarMirrorCommand} [download_url][magnet_link]: Start mirroring and upload the archived (.tar) version of the download
-
-/{BotCommands.CloneCommand}: Copy file/folder to google drive
-
-/{BotCommands.WatchCommand} [youtube-dl supported link]: Mirror through youtube-dl. Click /{BotCommands.WatchCommand} for more help.
-
-/{BotCommands.CancelMirror}: Reply to the message by which the download was initiated and that download will be cancelled
-
-/{BotCommands.StatusCommand}: Shows a status of all the downloads
-
-/{BotCommands.ListCommand} [search term]: Searches the search term in the Google drive, if found replies with the link
-
-/{BotCommands.StatsCommand}: Show Stats of the machine the bot is hosted on
-
-/{BotCommands.AuthorizeCommand}: Authorize a chat or a user to use the bot (Can only be invoked by owner of the bot)
-
-/{BotCommands.AuthListCommand}: See Authorized list (Can only be invoked by owner of the bot)
-
-/{BotCommands.LogCommand}: Get a log file of the bot. Handy for getting crash reports
-
-/{BotCommands.UsageCommand}: To see Heroku Dyno Stats (Owner only).
-
-/{BotCommands.SpeedCommand}: Check Internet Speed of the Host
+[👮‍♂️ Click HERE to get More Infomations](https://telegra.ph/File-To-Link-Bot-Help-08-14) 
 '''
     sendMessage(help_string, context.bot, update)
 
@@ -136,8 +107,6 @@ def main():
         LOGGER.info('Restarted Successfully!')
         remove('restart.pickle')
 
-    start_handler = CommandHandler(BotCommands.StartCommand, start,
-                                   filters=CustomFilters.authorized_chat | CustomFilters.authorized_user)
     ping_handler = CommandHandler(BotCommands.PingCommand, ping,
                                   filters=CustomFilters.authorized_chat | CustomFilters.authorized_user)
     restart_handler = CommandHandler(BotCommands.RestartCommand, restart,
@@ -148,7 +117,6 @@ def main():
                                    stats, filters=CustomFilters.authorized_chat | CustomFilters.authorized_user)
     log_handler = CommandHandler(BotCommands.LogCommand, log, filters=CustomFilters.owner_filter)
     authlist_handler = CommandHandler(BotCommands.AuthListCommand, chat_list, filters=CustomFilters.owner_filter)
-    dispatcher.add_handler(start_handler)
     dispatcher.add_handler(ping_handler)
     dispatcher.add_handler(restart_handler)
     dispatcher.add_handler(help_handler)
