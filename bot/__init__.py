@@ -251,15 +251,19 @@ except KeyError:
 try:
     IRU_SHORTENER = getConfig('IRU_SHORTENER')
 except KeyError:
-    IRU_SHORTENER = ''
+    IRU_SHORTENER = None
 try:
     NEW_DOMAIN = getConfig('NEW_DOMAIN')
 except KeyError:
-    NEW_DOMAIN = ''
+    NEW_DOMAIN = None
 try:
     IRU_SHORTENER_API = getConfig('IRU_SHORTENER_API')
 except KeyError:
-    IRU_SHORTENER_API = ''
+    IRU_SHORTENER_API = None
+try:
+    INS_TEXT_AADS = getConfig('INS_TEXT_AADS')
+except KeyError:
+    INS_TEXT_AADS = None
 
 updater = tg.Updater(token=BOT_TOKEN,use_context=True)
 bot = updater.bot
