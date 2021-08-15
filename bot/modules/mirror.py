@@ -167,10 +167,10 @@ class MirrorListener(listeners.MirrorListeners):
                     else:
                         siurl = requests.get('https://{}/api?api={}&url={}&format=text'.format(IRU_SHORTENER, IRU_SHORTENER_API, share_url)).text
                     buttons.buildbutton("⚡Index Link⚡", siurl)
-                    LastPg == f'\n\n🏁 <b>For Mobile Devices</b> 👇🏾\nCopy this Ultra Speed Link and Past it on Chrome and Open it. 😇\n<code>{siurl}</code>\n\n🏁 <b>For Other Devices</b> 👇🏾\nClick on <b>⚡️Index Link ⚡️</b> Button to Download Your File. \n\n<b>⚡️Index Link ⚡️</b> Button also Works for Mobiles. But some Mobiles Throw Errors ❗️'                    
+                    LastPg = f'\n\n🏁 <b>For Mobile Devices</b> 👇🏾\nCopy this Ultra Speed Link and Past it on Chrome and Open it. 😇\n<code>{siurl}</code>\n\n🏁 <b>For Other Devices</b> 👇🏾\nClick on <b>⚡️Index Link ⚡️</b> Button to Download Your File. \n\n<b>⚡️Index Link ⚡️</b> Button also Works for Mobiles. But some Mobiles Throw Errors ❗️'                    
                 else:
                     buttons.buildbutton("⚡Index Link⚡", share_url)
-                    LastPg == f'\n\n🏁 <b>For Mobile Devices</b> 👇🏾\nCopy this Ultra Speed Link and Past it on Chrome and Open it. 😇\n<code>{share_url}</code>\n\n🏁 <b>For Other Devices</b> 👇🏾\nClick on <b>⚡️Index Link ⚡️</b> Button to Download Your File. \n\n<b>⚡️Index Link ⚡️</b> Button also Works for Mobiles. But some Mobiles Throw Errors ❗️'
+                    LastPg = f'\n\n🏁 <b>For Mobile Devices</b> 👇🏾\nCopy this Ultra Speed Link and Past it on Chrome and Open it. 😇\n<code>{share_url}</code>\n\n🏁 <b>For Other Devices</b> 👇🏾\nClick on <b>⚡️Index Link ⚡️</b> Button to Download Your File. \n\n<b>⚡️Index Link ⚡️</b> Button also Works for Mobiles. But some Mobiles Throw Errors ❗️'
             if BUTTON_THREE_NAME is not None and BUTTON_THREE_URL is not None:
                 buttons.buildbutton(f"{BUTTON_THREE_NAME}", f"{BUTTON_THREE_URL}")
             if BUTTON_FOUR_NAME is not None and BUTTON_FOUR_URL is not None:
