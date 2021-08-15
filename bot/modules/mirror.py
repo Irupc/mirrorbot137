@@ -160,10 +160,17 @@ class MirrorListener(listeners.MirrorListeners):
                 if os.path.isdir(f'{DOWNLOAD_DIR}/{self.uid}/{download_dict[self.uid].name()}'):
                     share_url += '/'
                 if SHORTENER is not None and SHORTENER_API is not None:
-                    siurl = requests.get('https://{}/api?api={}&url={}&format=text'.format(SHORTENER, SHORTENER_API, share_url)).text
+                    if SHORTENER == "cutt.ly:
+                        siurl = requests.get('http://cutt.ly/api/api.php?key={}&short={}'.format(SHORTENER_API, share_url))
+                        if SHORTENER_API.split("_")[0] == "iru":
+                            siurl = siurl.replace("cutt.ly", SHORTENER_API.split("_")[1])
+                    else:
+                        siurl = requests.get('https://{}/api?api={}&url={}&format=text'.format(SHORTENER, SHORTENER_API, share_url)).text
                     buttons.buildbutton("⚡Index Link⚡", siurl)
+                    LastPg == f'\n\n🏁 <b>For Mobile Devices</b> 👇🏾\nCopy this Ultra Speed Link and Past it on Chrome and Open it. 😇\n<code>{siurl}</code>\n\n🏁 <b>For Other Devices</b> 👇🏾\nClick on <b>⚡️Index Link ⚡️</b> Button to Download Your File. \n\n<b>⚡️Index Link ⚡️</b> Button also Works for Mobiles. But some Mobiles Throw Errors ❗️'                    
                 else:
                     buttons.buildbutton("⚡Index Link⚡", share_url)
+                    LastPg == f'\n\n🏁 <b>For Mobile Devices</b> 👇🏾\nCopy this Ultra Speed Link and Past it on Chrome and Open it. 😇\n<code>{share_url}</code>\n\n🏁 <b>For Other Devices</b> 👇🏾\nClick on <b>⚡️Index Link ⚡️</b> Button to Download Your File. \n\n<b>⚡️Index Link ⚡️</b> Button also Works for Mobiles. But some Mobiles Throw Errors ❗️'
             if BUTTON_THREE_NAME is not None and BUTTON_THREE_URL is not None:
                 buttons.buildbutton(f"{BUTTON_THREE_NAME}", f"{BUTTON_THREE_URL}")
             if BUTTON_FOUR_NAME is not None and BUTTON_FOUR_URL is not None:
@@ -175,7 +182,7 @@ class MirrorListener(listeners.MirrorListeners):
             else:
                 uname = f'<a href="tg://user?id={self.message.from_user.id}">{self.message.from_user.first_name}</a>'
             if uname is not None:
-               msg += f'\n\n<b>👤 𝗨𝗽𝗹𝗼𝗮𝗱𝗲𝗿 : 👉</b> {uname}\n'
+               msg += f'\n\n<b>👤 𝗨𝗽𝗹𝗼𝗮𝗱𝗲𝗿 : 👉</b> {uname}'              
             try:
                 fs_utils.clean_download(download_dict[self.uid].path())
             except FileNotFoundError:
@@ -282,6 +289,7 @@ def _mirror(bot, update, isTar=False, extract=False):
         Interval.append(setInterval(DOWNLOAD_STATUS_UPDATE_INTERVAL, update_all_messages))
 
 
+
 @run_async
 def mirror(update, context):
     _mirror(context.bot, update)
@@ -295,6 +303,8 @@ def tar_mirror(update, context):
 @run_async
 def unzip_mirror(update, context):
     _mirror(context.bot, update, extract=True)
+    
+
 
 
 mirror_handler = CommandHandler(BotCommands.MirrorCommand, mirror,
