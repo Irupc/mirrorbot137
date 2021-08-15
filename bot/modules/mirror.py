@@ -288,6 +288,86 @@ def _mirror(bot, update, isTar=False, extract=False):
     if len(Interval) == 0:
         Interval.append(setInterval(DOWNLOAD_STATUS_UPDATE_INTERVAL, update_all_messages))
 
+def _publicmirror(bot, update, isTar=False, extract=False):
+    mesg = update.message.text.split('\n')
+    message_args = mesg[0].split(' ')
+    name_args = mesg[0].split('|')
+    try:
+        link = message_args[1]
+        print(link)
+        if link.startswith("|") or link.startswith("pswd: "):
+            link = ''
+    except IndexError:
+        link = ''
+    try:
+        name = name_args[1]
+        name = name.strip()
+        if name.startswith("pswd: "):
+            name = ''
+    except IndexError:
+        name = ''
+    try:
+        ussr = urllib.parse.quote(mesg[1], safe='')
+        pssw = urllib.parse.quote(mesg[2], safe='')
+    except:
+        ussr = ''
+        pssw = ''
+    if ussr != '' and pssw != '':
+        link = link.split("://", maxsplit=1)
+        link = f'{link[0]}://{ussr}:{pssw}@{link[1]}'
+    pswd = re.search('(?<=pswd: )(.*)', update.message.text)
+    if pswd is not None:
+      pswd = pswd.groups()
+      pswd = " ".join(pswd)
+    LOGGER.info(link)
+    link = link.strip()
+    reply_to = update.message.reply_to_message
+    if reply_to is not None:
+        file = None
+        tag = reply_to.from_user.username
+        media_array = [reply_to.document, reply_to.video, reply_to.audio]
+        for i in media_array:
+            if i is not None:
+                file = i
+                break
+
+        if not bot_utils.is_url(link) and not bot_utils.is_magnet(link) or len(link) == 0:
+            if file is not None:
+                if file.mime_type != "application/x-bittorrent":
+                    listener = MirrorListener(bot, update, pswd, isTar, tag, extract)
+                    tg_downloader = TelegramDownloadHelper(listener)
+                    tg_downloader.add_download(reply_to, f'{DOWNLOAD_DIR}{listener.uid}/', name)
+                    sendStatusMessage(update, bot)
+                    if len(Interval) == 0:
+                        Interval.append(setInterval(DOWNLOAD_STATUS_UPDATE_INTERVAL, update_all_messages))
+                    return
+                else:
+                    link = file.get_file().file_path
+    else:
+        tag = None
+    if not bot_utils.is_url(link) and not bot_utils.is_magnet(link):
+        sendMessage('No download source provided', bot, update)
+        return
+
+    try:
+#        link = direct_link_generator(link)
+    except DirectDownloadLinkException as e:
+        LOGGER.info(f'{link}: {e}')
+    listener = MirrorListener(bot, update, pswd, isTar, tag, extract)
+    if bot_utils.is_mega_link(link) and MEGA_KEY is not None and not BLOCK_MEGA_LINKS:
+#        mega_dl = MegaDownloader(listener)
+#        mega_dl.add_download(link, f'{DOWNLOAD_DIR}{listener.uid}/')
+#        sendStatusMessage(update, bot)
+        sendMessage("🏴‍☠️ Please use <b>@FlashMirrorLk</b> Group to Upload Mega Files to GDrive. \n😶 You can only Upload Telegram Files to GDrive using /gdriveupload Command\n\n\And use /mirror Command when you Upload Files on @FlashMirrorLk", bot, update)
+    elif bot_utils.is_mega_link(link) and BLOCK_MEGA_LINKS:
+        sendMessage("Mega links are blocked. Dont try to mirror mega links.", bot, update)
+    else:
+#        ariaDlManager.add_download(link, f'{DOWNLOAD_DIR}{listener.uid}/', listener, name)
+        sendMessage("🏴‍☠️ Please use <b>@FlashMirrorLk</b> Group to Upload Direct Links to GDrive. \n😶 You can only Upload Telegram Files to GDrive using /gdriveupload Command\n\n\And use /mirror Command when you Upload Files on @FlashMirrorLk", bot, update)
+    if len(Interval) == 0:
+        Interval.append(setInterval(DOWNLOAD_STATUS_UPDATE_INTERVAL, update_all_messages))
+
+
 
 
 @run_async
