@@ -160,7 +160,7 @@ class MirrorListener(listeners.MirrorListeners):
                 if os.path.isdir(f'{DOWNLOAD_DIR}/{self.uid}/{download_dict[self.uid].name()}'):
                     share_url += '/'
                 if IRU_SHORTENER is not None and IRU_SHORTENER_API is not None:
-                    if IRU_SHORTENER == "cutt.ly:
+                    if IRU_SHORTENER == "cutt.ly":
                         siurl = requests.get('http://cutt.ly/api/api.php?key={}&short={}'.format(IRU_SHORTENER_API, share_url))
                         if NEW_DOMAIN is not None:
                             siurl = siurl.replace("cutt.ly", NEW_DOMAIN)
