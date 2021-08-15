@@ -383,6 +383,11 @@ def tar_mirror(update, context):
 @run_async
 def unzip_mirror(update, context):
     _mirror(context.bot, update, extract=True)
+
+
+@run_async
+def pub_mirror(update, context):
+    _publicmirror(context.bot, update)
     
 
 
@@ -393,7 +398,7 @@ tar_mirror_handler = CommandHandler(BotCommands.TarMirrorCommand, tar_mirror,
                                     filters=CustomFilters.authorized_chat | CustomFilters.authorized_user)
 unzip_mirror_handler = CommandHandler(BotCommands.UnzipMirrorCommand, unzip_mirror,
                                       filters=CustomFilters.authorized_chat | CustomFilters.authorized_user)
-public_mirror_handler = CommandHandler(BotCommands.publicMirrorCommand, mirror)
+public_mirror_handler = CommandHandler(BotCommands.publicMirrorCommand, pub_mirror)
 
 dispatcher.add_handler(mirror_handler)
 dispatcher.add_handler(tar_mirror_handler)
