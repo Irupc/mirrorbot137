@@ -248,6 +248,18 @@ try:
     HELP_TEXT_BOOL = getConfig('HELP_TEXT_BOOL')
 except KeyError:
     HELP_TEXT_BOOL = 'false'
+try:
+    IRU_SHORTENER = getConfig('IRU_SHORTENER')
+except KeyError:
+    IRU_SHORTENER = ''
+try:
+    NEW_DOMAIN = getConfig('NEW_DOMAIN')
+except KeyError:
+    NEW_DOMAIN = ''
+try:
+    IRU_SHORTENER_API = getConfig('IRU_SHORTENER_API')
+except KeyError:
+    IRU_SHORTENER_API = ''
 
 updater = tg.Updater(token=BOT_TOKEN,use_context=True)
 bot = updater.bot
