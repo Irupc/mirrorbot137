@@ -346,26 +346,24 @@ def _publicmirror(bot, update, isTar=False, extract=False):
                 else:
                     link = file.get_file().file_path
     else:
-        tag = None
-    if not bot_utils.is_url(link) and not bot_utils.is_magnet(link):
         sendMessage('No download source provided', bot, update)
         return
 
-    try:
+#    try:
 #        link = direct_link_generator(link)
 #    except DirectDownloadLinkException as e:
 #        LOGGER.info(f'{link}: {e}')
 #    listener = MirrorListener(bot, update, pswd, isTar, tag, extract)
-    if bot_utils.is_mega_link(link) and MEGA_KEY is not None and not BLOCK_MEGA_LINKS:
+#    if bot_utils.is_mega_link(link) and MEGA_KEY is not None and not BLOCK_MEGA_LINKS:
 #        mega_dl = MegaDownloader(listener)
 #        mega_dl.add_download(link, f'{DOWNLOAD_DIR}{listener.uid}/')
 #        sendStatusMessage(update, bot)
-        sendMessage("🏴‍☠️ Please use <b>@FlashMirrorLk</b> Group to Upload Mega Files to GDrive. \n😶 You can only Upload Telegram Files to GDrive using /gdriveupload Command\n\n\And use /mirror Command when you Upload Files on @FlashMirrorLk", bot, update)
-    elif bot_utils.is_mega_link(link) and BLOCK_MEGA_LINKS:
-        sendMessage("Mega links are blocked. Dont try to mirror mega links.", bot, update)
-    else:
+#        sendMessage("🏴‍☠️ Please use <b>@FlashMirrorLk</b> Group to Upload Mega Files to GDrive. \n😶 You can only Upload Telegram Files to GDrive using /gdriveupload Command\n\n\And use /mirror Command when you Upload Files on @FlashMirrorLk", bot, update)
+#    elif bot_utils.is_mega_link(link) and BLOCK_MEGA_LINKS:
+#        sendMessage("Mega links are blocked. Dont try to mirror mega links.", bot, update)
+#    else:
 #        ariaDlManager.add_download(link, f'{DOWNLOAD_DIR}{listener.uid}/', listener, name)
-        sendMessage("🏴‍☠️ Please use <b>@FlashMirrorLk</b> Group to Upload Direct Links to GDrive. \n😶 You can only Upload Telegram Files to GDrive using /gdriveupload Command\n\n\And use /mirror Command when you Upload Files on @FlashMirrorLk", bot, update)
+#        sendMessage("🏴‍☠️ Please use <b>@FlashMirrorLk</b> Group to Upload Direct Links to GDrive. \n😶 You can only Upload Telegram Files to GDrive using /gdriveupload Command\n\n\And use /mirror Command when you Upload Files on @FlashMirrorLk", bot, update)
     if len(Interval) == 0:
         Interval.append(setInterval(DOWNLOAD_STATUS_UPDATE_INTERVAL, update_all_messages))
 
