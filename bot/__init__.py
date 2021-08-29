@@ -81,6 +81,21 @@ try:
 except:
     pass
 
+SP_USERS = set()
+if os.path.exists('spusers.txt'):
+    with open('spusers.txt', 'r+') as f:
+        lines = f.readlines()
+        for line in lines:
+            #    LOGGER.info(line.split())
+            SP_USERS.add(int(line.split()[0]))
+try:
+    achats = getConfig('SP_USERS')
+    achats = achats.split(" ")
+    for chats in achats:
+        SP_USERS.add(int(chats))
+except:
+    pass
+
 try:
     BOT_TOKEN = getConfig('BOT_TOKEN')
     parent_id = getConfig('GDRIVE_FOLDER_ID')
