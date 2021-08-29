@@ -1,14 +1,20 @@
 from telegram.ext import BaseFilter
 from telegram import Message
-from bot import AUTHORIZED_CHATS, OWNER_ID, download_dict, download_dict_lock
+from bot import AUTHORIZED_CHATS, OWNER_ID, download_dict, download_dict_lock, SP_USERS
 
 
 class CustomFilters:
     class _OwnerFilter(BaseFilter):
         def filter(self, message):
             return bool(message.from_user.id == OWNER_ID)
-
+        
     owner_filter = _OwnerFilter()
+    
+    class _SPFilter(BaseFilter):
+        def filter(self, message):
+            return bool(message.from_user.id in SP_USERS)
+
+    special_user = _SPFilter()
 
     class _AuthorizedUserFilter(BaseFilter):
         def filter(self, message):
